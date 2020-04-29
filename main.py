@@ -10,6 +10,7 @@ import numpy as np
 
 
 # following tutorial at https://pytorch.org/tutorials/beginner/blitz
+# very good lectures about ML and pytorch: https://www.youtube.com/watch?v=SKq-pmkekTk&list=PLlMkM4tgfjnJ3I-dbhO9JTw7gNty6o_2m
 
 
 class Net(nn.Module):
@@ -29,10 +30,10 @@ class Net(nn.Module):
         # network for classifier example
 
         # 3 input image channel, 6 output channels (predictions?), 5x5 square convolution kernel
-        self.conv1 = nn.Conv2d(3, 6, 5)
+        self.conv1 = nn.Conv2d(3, 36, 5)
         self.pool = nn.MaxPool2d(2, 2)
         # is this 6 inputs, 16 outputs, 5x5 square convolution kernel?
-        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.conv2 = nn.Conv2d(36, 16, 5)
         # an affine (linear, scaled, parallel lines stay parallel) operation: y = Wx + b
         self.fc1 = nn.Linear(16 * 5 * 5, 120)  # 5*5 from ???
         self.fc2 = nn.Linear(120, 84)
