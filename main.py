@@ -29,13 +29,13 @@ class Net(nn.Module):
 
         # network for classifier example
 
-        # 3 input image channel, 6 output channels (predictions?), 5x5 square convolution kernel
-        self.conv1 = nn.Conv2d(3, 36, 5)
+        # 3 input image channel, 6 output channels (predictions?, feature maps?), 5x5 square convolution kernel
+        self.conv1 = nn.Conv2d(3, 128, 5)
         self.pool = nn.MaxPool2d(2, 2)
         # is this 6 inputs, 16 outputs, 5x5 square convolution kernel?
-        self.conv2 = nn.Conv2d(36, 16, 5)
+        self.conv2 = nn.Conv2d(128, 32, 5)
         # an affine (linear, scaled, parallel lines stay parallel) operation: y = Wx + b
-        self.fc1 = nn.Linear(16 * 5 * 5, 120)  # 5*5 from ???
+        self.fc1 = nn.Linear(32 * 5 * 5, 120)  # 5*5 from ???
         self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(84, 10)
 
@@ -62,7 +62,7 @@ class Net(nn.Module):
         x = self.pool(F.relu(self.conv1(x)))
         x = self.pool(F.relu(self.conv2(x)))
 
-        x = x.view(-1, 16 * 5 * 5)
+        x = x.view(-1, 32 * 5 * 5)
 
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
@@ -223,7 +223,7 @@ def classifier_train_demo():
 
     print('Training...')
 
-    for epoch in range(4):  # loop over the dataset multiple times
+    for epoch in range(2):  # loop over the dataset multiple times
 
         running_loss = 0.0
         for i, data in enumerate(trainloader, 0):
